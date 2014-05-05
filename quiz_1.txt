@@ -1,0 +1,82 @@
+1.) Why do they call it 'relational database'?
+
+They call it 'relational database' because withint the database itself, the tables can be/are connected to either via foreign keys, and associations between the data can be generated while still keeping the data integrity distinct and in-tact.
+
+2.) What is SQL?
+
+SQL stand for 'structured query language' and is a language that can be used to make requests to a database to pull our specific data
+
+3.) There are two predominant views in relational databases. What are they, and how are they different?
+
+The two views are 1:M (one-to-many) and M:M (many-to-many). They are different in that a 1:M relationship means that one 'thing' can have many 'others' e.g. 1 User can have many posts. A M:M means that one 'thing' can belong to many 'others', and one 'other' can have many things e.g. one group can have many users, and one user can belong to many groups.
+
+4.) In a table, what do we call the column that serves as the main identifier for a row of data? We're looking for the general database term, not the column name.
+
+primary key - unqiue identifier for that row entry on that particular table
+
+5.) What is a foreign key, and how is it used?
+
+Foreign keys are what connect different tables to eachother and reference related data sets.
+
+6.) At a high level, describe the ActiveRecord pattern. This has nothing to do with Rails, but the actual pattern that ActiveRecord uses to perform its ORM duties.
+
+The ActiveRecord pattern does several things. It takes keywords and and creates the appropriate SQL code for creating tables, entering data, etc in an object-like way. It also maps data to objects and lets you use/manipulate it in an easy way
+
+7.) If there's an ActiveRecord model called "CrazyMonkey", what should the table name be?
+
+crazy_monkeys
+
+8.) If I'm building a 1:M association between Project and Issue, what will the model associations and foreign key be?
+
+Project has_many :issues
+Issue belongs_to :project
+
+Issues will have a foreign key of project_id
+
+9.)
+
+MODEL:
+class Animal < ActiveRecord::Base
+  belongs_to :zoo
+end
+
+SCHEMA:
+t.string :name
+t.integer :zoo_id
+
+zoo.animals => Finds all animals that are mapped to that zoo
+
+san_diego_zoo = Zoo.find_by zoo_name "San Diego Zoo"
+
+Animal.create(name: "jumpster", zoo_id: san_diego_zoo.id)
+
+10. )What is mass assignment? What's the non-mass assignment way of setting values?
+
+Mass assignment is directly creating values and storing them in the database in one call without explicity saying save.
+
+Non-mass assignment would be storing the query results into a variable and calling the .save method on that variable object
+
+11.)What does this code do? Animal.first?
+
+Calls the database to retrieve the first entry of the table associated with the model object Animal => Gets the first animal out of the appropriate animal table
+
+12.)If I have a table called "animals" with columns called "name", and a model called Animal, how do I instantiate an animal object with name set to "Joe". Which methods makes sure it saves to the database?
+
+animal_joe = Animal.new(name: "Joe")
+animal_joe.save
+
+13.)How does a M:M association work at the database level?
+
+A M:M association works, at the database level, by using an intermediate table that references both tables that you want to have a M:M relationship with via 2 foreign keys. Each entry is a new reference connecting a record from one table to a record of the other, and each record type can be repeated multiple times with different combinations of foreign keys.
+
+14.) What are the two ways to support a M:M association at the ActiveRecord model level? Pros and cons of each approach?
+
+has_many through:
+ - uses an intermediate table. May not be as fast, but allows for adding additional data onto the intermediate table that can be used for a distinct purpose.
+
+ has_and_belongs_to_many
+  - creates a connection through the ActiveRecord layer, not through the database tables. Is faster to process, but does not allow for distinct, additional data about the relationship.
+
+  15.)Suppose we have a User model and a Group model, and we have a M:M association all set up. How do we associate the two?
+
+  We associate the two by creating the intermediate table and model for something that would take entries that have a foreign key to Users and a foreign key to Groups in the same row. A user could appear multiple times with different group id's, and a group could appear multiple times with a different user id.

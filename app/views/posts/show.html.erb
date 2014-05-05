@@ -1,0 +1,10 @@
+<%= render @post.categories %>
+<%= render 'shared/content_title', title: @post.title %>
+<p><%= link_to @post.url, @post.url %></p>
+<p><%= @post.description %></p>
+<% @post.comments.each do |comment| %>
+  <div class="well">
+    <p><%= comment.body %><p>
+    <p class="quiet"><span>by <%= comment.creator.username %></span> on <small><%= comment.created_at %></small></p>
+  </div>
+<% end %>
