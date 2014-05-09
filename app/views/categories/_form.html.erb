@@ -1,0 +1,7 @@
+<%= render 'shared/form_errors', form: @category %>
+<%= form_for category do |f| %>
+  <%= f.label :name, "Category Name" %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.submit "Create Category", class: "btn btn-success" %>
+<% end %>

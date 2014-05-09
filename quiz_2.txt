@@ -1,0 +1,59 @@
+1.)Name all the 7 (or 8) routes exposed by the resources keyword in the routes.rb file. Also name the 4 named routes, and how the request is routed to the controller/action.
+
+ - route#index GET
+ - route#show GET
+ - route#new POST
+ - route#create POST
+ - route#edit GET
+ - route#update PATCH
+ - route#delete DELETE
+ - route#destroy DELETE
+
+methods:
+ - GET
+ - POST
+ - PATCH/PUT
+ - DELETE
+
+ 2.)What is REST and how does it relate to the resources routes?
+
+ REST is the http verb-action protocol that uses GET, POST, PATCH/PUT, DELETE, and is what tells the application what actions to do regarding the requested resource (url) and model/controller actions
+
+ 3.)What's the major difference between model backed and non-model backed form helpers?
+
+ Model-backed helpers include smart functions, like knowing what REST action you want, based onthe url and controller, as well as providing security and additional features.
+
+ 4.)How does form_for know how to build the <form> element?
+
+ Form_for knows how to build the form element, based on the instace variable being requested and the appropriate syntax conventions that associate it with model (DB) data
+
+ 5.)What's the general pattern we use in the actions that handle submission of model-backed forms (ie, the create and update actions)?
+
+ if @actions.successful
+  flash[:notice] "success"
+  redirect_to {some relevant url}
+ else
+  render :template #will show error message, if setup correctly intemplate
+ end
+
+ 6.)How exactly do Rails validations get triggered? Where are the errors saved? How do we show the validation messages on the user interface?
+
+ Rails validations get triggered, depending on the parameters that the 'validates' function uses in the model layer. They get triggered when the request from hits the controller, and any errors are push the the .errors array.
+ Displaying them is just a matter of taking the object and parsing through the errors error and displaying the full_message
+
+ 7.)What are Rails helpers?
+
+ Rails helpers are functions that (generally) format the presentation of raw data for views and controller.
+
+ 8.)What are Rails partials?
+
+ Rails partials are pieces of presentation data that need to be repeated throughtout the application, and can be extracted to self-contained chunks and then called with render. They can accept parameters, just like functions.
+
+ 9.)When do we use partials vs helpers?
+
+ PARTIALS we use when we need to reuse pices of HTML/CSS/JSON etc in the view layer
+ HELPERS we use to format data from the model layer for presentation purposes or manipulation in the view and controller layers
+
+ 10.)When do we use non-model backed forms?
+
+ We use non-model backed forms when we need access to model data that doesn't necessarily fit the model-backed conventions.

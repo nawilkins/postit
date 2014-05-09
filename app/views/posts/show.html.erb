@@ -1,10 +1,20 @@
-<%= render @post.categories %>
-<%= render 'shared/content_title', title: @post.title %>
-<p><%= link_to @post.url, @post.url %></p>
-<p><%= @post.description %></p>
+<p class="inline">
+[<%= link_to "edit this post", edit_post_path(@post)%>]
+</p>
+<%= render 'post', post: @post %>
+<div class="well">
+  <h5>Create Comment</h5>
+  <%= render 'shared/form_errors', form: @comment %>
+  <%= form_for [@post, @comment] do |f| %>
+    <%= f.label :body, "Comment:" %>
+    <%= f.text_area :body, rows: 4, class: 'span4' %>
+    <br>
+    <%= f.submit "Create Comment", class: "btn btn-primary" %>
+  <% end %>
+</div>
 <% @post.comments.each do |comment| %>
   <div class="well">
-    <p><%= comment.body %><p>
-    <p class="quiet"><span>by <%= comment.creator.username %></span> on <small><%= comment.created_at %></small></p>
+    <em>"<%= comment.body %>"</em><br>
+    by <%= comment.creator.username %> on <span class="small"><%= time_format(comment.created_at) %></span>
   </div>
 <% end %>

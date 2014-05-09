@@ -1,0 +1,5 @@
+<%= render 'shared/content_title', title: "Create A New Post"%>
+  <% if @post %>
+    <%= render 'shared/form_errors', form: @post %>
+  <% end %>
+<%= render 'form', post: @post %>

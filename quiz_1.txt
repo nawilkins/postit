@@ -28,8 +28,8 @@ crazy_monkeys
 
 8.) If I'm building a 1:M association between Project and Issue, what will the model associations and foreign key be?
 
-Project has_many :issues
-Issue belongs_to :project
+Project: has_many :issues
+Issue: belongs_to :project, foreign_key: :project_id
 
 Issues will have a foreign key of project_id
 

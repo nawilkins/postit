@@ -1,0 +1,20 @@
+<div class="well">
+  <%= form_for post do |f| %>
+    <%= f.label :title, "Post Title" %>
+    <%= f.text_field :title %>
+    <br>
+    <%= f.label :url, "URL" %>
+    <%= f.text_field :url, placeholder: "example.com" %>
+    <br>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+    <br>
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
+      <%= cb.label(class: "checkbox inline") {cb.check_box + cb.text} %>
+    <% end %>
+    <div>
+    <br>
+      <%= f.submit(@post.new_record? ? 'Create Post' : 'Update Post', class: "btn btn-primary") %>
+    </div>
+  <% end %>
+</div>
