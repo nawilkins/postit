@@ -1,0 +1,22 @@
+<%= render 'shared/content_title', title: "Profile: #{current_user.username}" %>
+<div class="well">
+  <p>Username: <strong><%= current_user.username %></strong></p>
+</div>
+<h4><%= current_user.username %>'s Activity:</h2>
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#posts" data-toggle="tab">Posts</a></li>
+  <li><a href="#comments" data-toggle="tab">Comments</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="posts">
+    <% @user.posts.each do |post| %>
+      <%= render 'posts/post', post: post %>
+    <% end %>
+  </div>
+  <div class="tab-pane" id="comments">
+  <% if @user.comments.exists? %>
+    <%= render 'posts/comments', post: @user, comment_post: true %>
+  <% end %>
+  </div>
+</div>

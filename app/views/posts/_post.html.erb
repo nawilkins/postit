@@ -1,9 +1,26 @@
-<div class="well">
-  <%= render  post.categories %>
-  <h4><%= link_to post.title, post_url_format(post.url) %></h4>
-  <p><%= post.description %></p>
-  <p>
-    <span>posted by <%= post.creator.username %></span> on <span class="quiet"><%= time_format(post.created_at) %></span>
-  </p>
-  <small><%= link_to("#{post.comments.size} comments", post_path(post)) %></small>
+<div class="row">
+  <div class="span0 well text-center">
+    <% if logged_in? %>
+      <%= link_to vote_post_path(post, vote: true), method: 'post' do %>
+        <span class="icon icon-arrow-up"></span>
+      <% end %>
+      <br>
+    <% end %>
+    <%= post.total_votes %> votes
+    <% if logged_in? %>
+      <br>
+      <%= link_to vote_post_path(post, vote: false), method: 'post' do %>
+        <span class="icon icon-arrow-down"></span>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="well span8">
+    <%= render  post.categories %>
+    <h4><%= link_to post.title, post_url_format(post.url) %></h4>
+    <p><%= post.description %></p>
+    <p>
+      <span>posted by <%= post.creator.username %></span> on <span class="quiet"><%= time_format(post.created_at) %></span>
+    </p>
+    <small><%= link_to("#{post.comments.size} comments", post_path(post)) %></small>
+  </div>
 </div>

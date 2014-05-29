@@ -1,20 +1,27 @@
-<p class="inline">
-[<%= link_to "edit this post", edit_post_path(@post)%>]
-</p>
-<%= render 'post', post: @post %>
-<div class="well">
-  <h5>Create Comment</h5>
-  <%= render 'shared/form_errors', form: @comment %>
-  <%= form_for [@post, @comment] do |f| %>
-    <%= f.label :body, "Comment:" %>
-    <%= f.text_area :body, rows: 4, class: 'span4' %>
-    <br>
-    <%= f.submit "Create Comment", class: "btn btn-primary" %>
-  <% end %>
-</div>
-<% @post.comments.each do |comment| %>
-  <div class="well">
-    <em>"<%= comment.body %>"</em><br>
-    by <%= comment.creator.username %> on <span class="small"><%= time_format(comment.created_at) %></span>
+<% if logged_in? %>
+<div class="row">
+  <div class="span12">
+    <p class="pull-right">
+    [<%= link_to "edit this post", edit_post_path(@post)%>]
+    </p>
   </div>
+</div>
+<% end %>
+<%= render 'post', post: @post %>
+<% if logged_in? %>
+  <div class="row">
+    <div class="span12">
+      <h5>Create Comment</h5>
+      <%= render 'shared/form_errors', form: @comment %>
+      <%= form_for [@post, @comment] do |f| %>
+        <%= f.label :body, "Comment:" %>
+        <%= f.text_area :body, rows: 4, class: 'span4' %>
+        <br>
+        <%= f.submit "Create Comment", class: "btn btn-primary" %>
+      <% end %>
+      </div>
+    </div>
+<% end %>
+<% if @post.comments.exists? %>
+  <%= render 'comments', post: @post, comment_post: false %>
 <% end %>

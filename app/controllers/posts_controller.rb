@@ -1,9 +1,10 @@
 class PostsController < ApplicationController
 
-  before_action :find_post_id, only: [:show, :edit, :update]
+  before_action :find_post_id, only: [:show, :edit, :update, :vote]
+  before_action :require_user, except: [:index, :show]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.sort_by{|x| x.total_votes}.reverse
   end
 
   def show
@@ -16,12 +17,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    
     @post = Post.new(post_params)
-    @post.creator = User.first
-
-    binding.pry
-
+    @post.creator = current_user
     if @post.save
       flash[:notice] = 'Your post has been created'
       redirect_to posts_path
@@ -30,8 +27,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @post.update(post_params)
@@ -40,6 +36,16 @@ class PostsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def vote
+    vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
+    if vote.valid?
+      flash[:notice] = "Your vote has been counted!"
+    else
+      flash[:error] = "You may only vote once per post"
+    end
+    redirect_to :back
   end
 
   private
@@ -51,4 +57,5 @@ class PostsController < ApplicationController
   def find_post_id
     @post = Post.find(params[:id])
   end
+
 end
