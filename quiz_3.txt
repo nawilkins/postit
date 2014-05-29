@@ -1,0 +1,35 @@
+1.)
+Rendering renders a specific template under the same action. Redirecting redirects the visitor to a new action/url.
+Reredirecting resets/reinitializes all instance variables, local variables, and view template.
+
+2.)
+Using a flash with show the message on the next page the user sees.
+
+3.)
+The easiest way to display a message on a view when rendering is with condition message statements in the view template itself. Rendering is usually done when there are errors, so you can programatically read out the errors in an error message easier that way, then doing a flash.
+
+4.)
+Passwords should be saved in the database using a hash algorithm, not as plain text. has_secure_password and a password_digest field in the database are the safest ways to save passwords in Rails, and there is additional authentication and attack prevention built into it (I belive those functions take advantage of the sprocket gem)
+
+5.)
+If you have a helper that is needed in both views and controllers, it is best to add the method to the application controller class and specify it as a helper method there, as opposed to only adding it to the helper_method class.
+
+6.)Memoization utilizes ||= to conditionally use a variable if it is set, or set it if not. It saves memory by utilizing the application cache/instance variables that are set, as opposed to having to call the db. Perfect of multiple validation checks, etc on the same page.
+
+7.)
+Use a before_action on the specified posts and comments that checks for a logged in/authenticated user.
+
+8.)
+Remove the individual item id's and create 2 columns - likeable_type and likeable_id. The item being liked - such as image, photo, post, goes under the likealble type and the id of the image, photo, or post goes under the likeable_id.
+
+9.)
+class Vote < ActiveRecord::Base
+  belongs_to voteable, polymorphic: true
+end
+
+class Post < ActiveRecord::Base
+  has_many votes, as :voteable
+end
+
+10.)
+ERD diagram is an 'entity relationship diagram' and it maps the relationships betweent the database/models. We need it to properly create the database structure and 1:M, M:M relationships in our application.
