@@ -23,5 +23,5 @@
     </div>
 <% end %>
 <% if @post.comments.exists? %>
-  <%= render 'comments', post: @post, comment_post: false %>
+  <%= render 'comments/comments', post: @post, comment_post: false %>
 <% end %>

@@ -12,12 +12,12 @@
       <span class="btn btn-small btn-success"><%= current_user.username %> <span class="caret"></span></span>
       <ul class="dropdown-menu">
         <li>
-        <%=link_to edit_user_path(current_user.id), class: 'inline' do %>
+        <%=link_to edit_user_path(current_user), class: 'inline' do %>
           <span class="icon icon-pencil"></span> Edit Profile
         <% end %>
         </li>
         <li>
-          <%= link_to user_path(current_user.id), class: 'inline' do %>
+          <%= link_to user_path(current_user), class: 'inline' do %>
             <span class="icon icon-user"></span> View Profile
           <% end %>
         </li>

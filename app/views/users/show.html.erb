@@ -16,7 +16,7 @@
   </div>
   <div class="tab-pane" id="comments">
   <% if @user.comments.exists? %>
-    <%= render 'posts/comments', post: @user, comment_post: true %>
+    <%= render 'comments/comments', post: @user, comment_post: true %>
   <% end %>
   </div>
 </div>
