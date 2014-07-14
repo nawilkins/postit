@@ -13,10 +13,6 @@ class Post < ActiveRecord::Base
   validates :url, presence: true, uniqueness: true
   validates :categories, presence: true
 
-  before_save :generate_slug!
-
-  def to_param
-    self.slug
-  end
+  sluggable_column :title
 
 end
